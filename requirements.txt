@@ -1,0 +1,20 @@
+# --- OCR & PDF processing ---
+pytesseract>=0.3.10         # OCR engine wrapper (requires Tesseract installed on system)
+pdf2image>=1.17.0           # Convert PDF pages -> Pillow images
+Pillow>=10.4.0              # Image processing (used for binarization)
+
+# --- Core model fine-tuning (QLoRA) ---
+torch>=2.1.0                # PyTorch backend
+accelerate>=0.34.2          # Multi-GPU / mixed precision helper
+transformers>=4.44.2        # Hugging Face Transformers
+trl>=0.9.6                  # Supervised fine-tuning (SFTTrainer)
+peft>=0.12.0                # LoRA / QLoRA support
+datasets>=3.0.1             # JSONL dataset loading
+evaluate>=0.4.2             # Metric utilities (BLEU)
+jiwer>=3.0.4                # CER / WER computation
+regex>=2024.9.11            # Robust regex handling
+tqdm>=4.66.5                # Progress bars
+
+# --- Optional utilities ---
+huggingface_hub>=0.25.1     # For model/tokenizer fetch
+numpy>=1.26.4
