@@ -1,4 +1,4 @@
-📘 OCR LLM Fine-Tuning Pipeline (Qwen2-7B + LoRA)
+OCR LLM Fine-Tuning Pipeline (Qwen2-7B + LoRA)
 
 This repository contains a complete, end-to-end workflow for training a custom OCR text restoration model using LoRA fine-tuning on Qwen2-7B-Instruct.
 The model learns to convert raw OCR text from scanned legal PDFs into clean, corrected, normalized text.
@@ -17,7 +17,7 @@ Model merging for deployment
 
 Fully tested on Windows + 48GB GPU (CUDA).
 
-✅ Features
+Features
 
 Train your own OCR-correction LLM from scanned PDFs
 
@@ -31,23 +31,35 @@ Produces a single merged model ready for deployment
 
 Perfect for legal documents, agreements, contracts, financial PDFs, etc.
 
-📂 Project Structure
+Project Structure
 FineTune/
+
 │
+
 ├── data_raw/               # Put your scanned PDFs here
+
 ├── dataset/                # Auto-generated JSONL dataset (train/valid/test)
+
 │
+
 ├── scripts/
+
 │   ├── prepare_dataset.py  # OCR + cleaning + chunking
+
 │   ├── train_data.py       # Qwen2-7B LoRA fine-tuning
+
 │   ├── eval_metrics.py     # Evaluation on test.jsonl
+
 │   ├── merge_lora.py       # Merge LoRA → full model
+
 │
 ├── requirements.txt
+
 ├── README.md
+
 └── .venv/                  # Python virtual environment (recommended)
 
-🛠️ System Requirements
+System Requirements
 Hardware
 
 NVIDIA GPU with ≥ 24GB VRAM
@@ -66,7 +78,7 @@ Poppler (PDF → image)
 
 Tesseract OCR (image → text)
 
-🔧 Installation
+Installation
 1. Clone project / download folder
 cd C:\Users\user\Downloads
 
@@ -88,7 +100,7 @@ Tesseract → C:\Program Files\Tesseract-OCR\
 
 Make sure prepare_dataset.py points to correct paths.
 
-📥 1. Add Your PDF Files
+1. Add Your PDF Files
 
 Place all scanned PDFs into:
 
@@ -101,7 +113,7 @@ data_raw/125. CBD (Part B - Vol 1) +002_unlocked.pdf
 data_raw/242. CBOD Part B Volume 12 +002_unlocked.pdf
 ...
 
-🧱 2. Build Training Dataset (OCR → JSONL)
+2. Build Training Dataset (OCR → JSONL)
 
 This performs:
 
@@ -126,7 +138,7 @@ dataset/train.jsonl
 dataset/valid.jsonl
 dataset/test.jsonl
 
-🤖 3. Train Qwen2-7B-Instruct with LoRA (bf16)
+3. Train Qwen2-7B-Instruct with LoRA (bf16)
 
 Because Windows cannot use bitsandbytes reliably, we use bf16 LoRA, which fits comfortably in 48GB VRAM.
 
@@ -147,7 +159,7 @@ Save results to:
 
 ocr_qlora/final/
 
-📊 4. Evaluate Model on Test Set
+4. Evaluate Model on Test Set
 
 Run:
 
@@ -170,7 +182,7 @@ BLEU score
 
 Before/after examples
 
-🧬 5. Merge LoRA Into Full Model (Deployable)
+5. Merge LoRA Into Full Model (Deployable)
 python scripts/merge_lora.py --adapter_dir ocr_qlora/final --base_model Qwen/Qwen2-7B-Instruct --out_dir ocr_merged_fp16
 
 
@@ -186,7 +198,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 tok = AutoTokenizer.from_pretrained("ocr_merged_fp16")
 model = AutoModelForCausalLM.from_pretrained("ocr_merged_fp16", torch_dtype="bfloat16").cuda()
 
-🎉 6. Use Your Custom OCR-Restoration Model
+6. Use Your Custom OCR-Restoration Model
 
 Example usage:
 
@@ -202,7 +214,7 @@ print(tok.decode(out[0], skip_special_tokens=True))
 
 You now have your own legal-document OCR correction transformer.
 
-📌 Tips & Best Practices
+Tips & Best Practices
 
 For giant PDFs (500+ pages), consider using page_stride=2 or 3 to save time.
 
@@ -212,7 +224,7 @@ Your 48GB GPU can do 7B models easily, but Windows memory fragmentation requires
 
 If you switch to Linux/WSL2, you may enable 4-bit QLoRA.
 
-🧩 Troubleshooting
+Troubleshooting
 ❗ CUDA Out Of Memory
 
 Use:
