@@ -1,4 +1,4 @@
-OCR LLM Fine-Tuning Pipeline (Qwen2-7B + LoRA)
+# OCR LLM Fine-Tuning Pipeline (Qwen2-7B + LoRA)
 
 This repository contains a complete, end-to-end workflow for training a custom OCR text restoration model using LoRA fine-tuning on Qwen2-7B-Instruct.
 The model learns to convert raw OCR text from scanned legal PDFs into clean, corrected, normalized text.
@@ -17,7 +17,7 @@ Model merging for deployment
 
 Fully tested on Windows + 48GB GPU (CUDA).
 
-Features
+## Features
 
 Train your own OCR-correction LLM from scanned PDFs
 
@@ -31,7 +31,7 @@ Produces a single merged model ready for deployment
 
 Perfect for legal documents, agreements, contracts, financial PDFs, etc.
 
-Project Structure
+## Project Structure
 FineTune/
 
 │
@@ -59,7 +59,7 @@ FineTune/
 
 └── .venv/                  # Python virtual environment (recommended)
 
-System Requirements
+## System Requirements
 Hardware
 
 NVIDIA GPU with ≥ 24GB VRAM
@@ -78,7 +78,7 @@ Poppler (PDF → image)
 
 Tesseract OCR (image → text)
 
-Installation
+## Installation
 1. Clone project / download folder
 cd C:\Users\user\Downloads
 
@@ -214,7 +214,7 @@ print(tok.decode(out[0], skip_special_tokens=True))
 
 You now have your own legal-document OCR correction transformer.
 
-Tips & Best Practices
+## Tips & Best Practices
 
 For giant PDFs (500+ pages), consider using page_stride=2 or 3 to save time.
 
@@ -224,7 +224,7 @@ Your 48GB GPU can do 7B models easily, but Windows memory fragmentation requires
 
 If you switch to Linux/WSL2, you may enable 4-bit QLoRA.
 
-Troubleshooting
+## Troubleshooting
 ❗ CUDA Out Of Memory
 
 Use:
@@ -245,7 +245,7 @@ Increase DPI:
 
 Add more PDFs to data_raw/ and rerun prepare_dataset.py.
 
-🎯 Summary
+## Summary
 
 You now have a full pipeline:
 
@@ -260,5 +260,3 @@ Evaluate with eval_metrics.py
 Merge model with merge_lora.py
 
 Deploy your custom OCR restoration model
-
-This README gives everything needed to run the workflow from start to finish.
